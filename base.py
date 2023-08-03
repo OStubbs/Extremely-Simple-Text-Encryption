@@ -1,6 +1,7 @@
 import sys
 import os
 
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import QApplication, QMainWindow, QFileDialog
 
 from ui import Ui_MainWindow
@@ -26,6 +27,7 @@ class MainWindow(QMainWindow):
         text_out = self.crypt_obj.decrypt(os.path.normpath(private_key[0]),
                                           os.path.normpath(encrypted_file[0]))
         self.ui.decrypted_text.setPlainText(text_out)
+        self.activateWindow()
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
