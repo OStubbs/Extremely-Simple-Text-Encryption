@@ -13,7 +13,7 @@ class RSACrypt:
         if not os.path.isfile(self.public_key):
             self.generate_keys()
     
-    def generate_keys(self):
+    def generate_keys(self) -> None:
         key = RSA.generate(2048)
         private_key = key.export_key()
         with open(self.private_key, "wb") as private_out:
@@ -22,7 +22,7 @@ class RSACrypt:
         with open(self.public_key, "wb") as public_out:
             public_out.write(key.publickey().export_key())
             
-    def encrypt(self, data):
+    def encrypt(self, data:str) -> None:
         data = data.encode("utf-8") 
         recipient_key = RSA.import_key(open(self.public_key).read())
         cipher_rsa = PKCS1_OAEP.new(recipient_key)
@@ -37,8 +37,7 @@ class RSACrypt:
             for x in (enc_session_key, cipher_aes.nonce, tag, ciphertext):
                 bin_out.write(x)
                 
-    def decrypt(self, private_key, encrypted_file):
-
+    def decrypt(self, private_key, encrypted_file) -> str:
         private_key = RSA.import_key(open(private_key).read())
 
         with open(encrypted_file, "rb") as bin_file:
