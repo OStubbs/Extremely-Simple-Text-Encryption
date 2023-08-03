@@ -19,9 +19,8 @@ class RSACrypt:
         with open(self.private_key, "wb") as private_out:
             private_out.write(private_key)
 
-        public_key = key.publickey().export_key()
         with open(self.public_key, "wb") as public_out:
-            public_out.write(public_key)
+            public_out.write(key.publickey().export_key())
             
     def encrypt(self, data):
         data = data.encode("utf-8") 
